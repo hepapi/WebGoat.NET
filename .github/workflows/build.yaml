@@ -26,7 +26,7 @@ jobs:
           mkdir -p ${{ runner.temp }}/dotnet
           wget https://dot.net/v1/dotnet-install.sh -O ${{ runner.temp }}/dotnet-install.sh
           chmod +x ${{ runner.temp }}/dotnet-install.sh
-          ${{ runner.temp }}/dotnet-install.sh --version 8.0.x --install-dir ${{ runner.temp }}/dotnet
+          ${{ runner.temp }}/dotnet-install.sh --channel 8.0 --install-dir ${{ runner.temp }}/dotnet
           echo "${{ runner.temp }}/dotnet" >> $GITHUB_PATH
       - name: Install Mono
         run: |
