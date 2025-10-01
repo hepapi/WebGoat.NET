@@ -21,10 +21,13 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu' # Alternative distribution options are available.
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
+      - name: Set up .NET locally
+        run: |
+          mkdir -p ${{ runner.temp }}/dotnet
+          wget https://dot.net/v1/dotnet-install.sh -O ${{ runner.temp }}/dotnet-install.sh
+          chmod +x ${{ runner.temp }}/dotnet-install.sh
+          ${{ runner.temp }}/dotnet-install.sh --version 8.0.x --install-dir ${{ runner.temp }}/dotnet
+          echo "${{ runner.temp }}/dotnet" >> $GITHUB_PATH
       - name: Install Mono
         run: |
           sudo apt-get update
