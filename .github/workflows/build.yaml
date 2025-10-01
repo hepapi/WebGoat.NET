@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: Build and analyze
-    runs-on: sonarqube2
+    runs-on: ubuntu-latest
     
     steps:
       - uses: actions/checkout@v4
@@ -21,6 +21,14 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu' # Alternative distribution options are available.
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Install Mono
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mono-devel msbuild
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
@@ -42,5 +50,6 @@ jobs:
       - name: Build and analyze
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"WebGoat.NET" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
-          dotnet build
+          msbuild
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
