@@ -28,6 +28,7 @@ jobs:
           chmod +x ${{ runner.temp }}/dotnet-install.sh
           ${{ runner.temp }}/dotnet-install.sh --channel 8.0 --install-dir ${{ runner.temp }}/dotnet
           echo "${{ runner.temp }}/dotnet" >> $GITHUB_PATH
+          echo "DOTNET_ROOT=${{ runner.temp }}/dotnet" >> $GITHUB_ENV
       - name: Install Mono
         run: |
           sudo apt-get update
