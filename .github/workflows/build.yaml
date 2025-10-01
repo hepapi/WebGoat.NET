@@ -54,6 +54,6 @@ jobs:
       - name: Build and analyze
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"WebGoat.NET" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
-          dotnet msbuild
+          msbuild
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
